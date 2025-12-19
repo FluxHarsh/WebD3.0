@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <input type="text"></input>
+  <button onclick="addTodo()">Add todo!</button>
+
+  <script>
+    function addTodo(){
+      const divEl= document.createElement("div")
+
+      const content=document.querySelector("input").value
+      divEl.innerHTML=` <div>${content}</div> <button onclick='removeTask()'>delete</button> ` 
+
+      const parentEl=document.querySelector("body")
+      parentEl.appendChild(divEl)
+    }
+
+    function removeTask(){
+      const task= document.querySelector('div')
+      task.parentNode.removeChild(task)
+    }
+  </script>
+
+</body>
+
+</html>
+
+
+<!-- done with it will do 3.2 with react,ui/ux,ts after covering backend part  -->
