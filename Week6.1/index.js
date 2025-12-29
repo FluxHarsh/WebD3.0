@@ -155,18 +155,25 @@ app.post('/signin', function (req, res) {
 // sending the token in header via get request then with that token identification giving back that username and password of the user
 app.get('/me', function(req,res){
     const token = req.header.token
+    const decodedInformation = jwt.verify(token, JWT_SECRET)
+    const username = decodedInformation.username
+
+
+
+    // but for password still need to hit the database
+
     let foundUser = null
 
     for (let i = 0; i < users.length; i++) {
-        if(users[i].token == token ) {
+        if(users[i].username == username ) {
             foundUser = users[i]
         }
     }
 
     if(foundUser){
         res.json({
-            username: foundUser.username,
-            password: foundUser.password
+            username:foundUser.username,
+            password:foundUser.password
         })
     }else{
         res.json({
