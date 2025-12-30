@@ -1,6 +1,6 @@
 const express = require('express');
-const { UserModel , TodoModel } = require('./db')
-const jwt=require('jsonwebtoken');
+const { UserModel, TodoModel } = require('./db')
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const JWT_SECRET = "harsh"
 
@@ -9,7 +9,7 @@ mongoose.connect("mongodb+srv://HarshJagtap:Harsh%403402@cluster0.qnrdva0.mongod
 const app = express();
 app.use(express.json())
 
-app.post('/signup', async function(req,res){
+app.post('/signup', async function (req, res) {
     const email = req.body.email;
     const name = req.body.name;
     const password = req.body.password;
@@ -25,7 +25,7 @@ app.post('/signup', async function(req,res){
     })
 
 })
-app.post('/signin', async function(req,res){
+app.post('/signin', async function (req, res) {
     const email = req.body.email;
     const password = req.body.password;
 
@@ -36,40 +36,69 @@ app.post('/signin', async function(req,res){
 
     console.log(user)
 
-    if(user) {
+    if (user) {
         const token = jwt.sign({
-            id: user._id
-        },JWT_SECRET)
+            id: user._id.toString()
+        }, JWT_SECRET)
 
         res.json({
-            token:token
+            token: token
         })
-    }else{
+    } else {
         res.status(403).json({
             message: "Incorrect credentials"
         })
     }
 
 })
-app.post('/todo', async function(req,res){
 
+
+
+app.post('/todo', auth, async function (req, res) {
+    const userId = req.userId
     const title = req.body.title
-    const done = req.body.done 
-    const userId = req.body.userId 
+    const done = req.body.done
 
-    const todo = await TodoModel.create({
+    await TodoModel.create({
+        userId,
         title,
-        done,
-        userId
+        done
     })
 
     res.json({
-        message: "You are todo is saved" 
+        msg: "Todo created"
     })
 
 })
-app.get('/todos', function(req,res){
+app.get('/todos', auth, async function (req, res) {
+    const userId = req.userId
+
+    const todos = await TodoModel.findOne({
+        userId: userId
+    })
+
+    res.json({
+        todos
+    })
 
 })
+
+function auth(req, res, next) {
+
+
+    const token = req.headers.token
+    const decodedInfo = jwt.verify(token, JWT_SECRET)
+    console.log(decodedInfo)
+
+    if (decodedInfo) {
+        req.userId = decodedInfo.id
+        next()
+    } else {
+        res.status(403).json({
+            msg: "Incorrect credentials"
+        })
+    }
+
+}
 
 app.listen(3000);

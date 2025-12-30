@@ -10,7 +10,7 @@ const User = new Schema({
 
 const Todo = new Schema({
     title: String,
-    done:Boolean,
+    done: Boolean,
     userId: ObjectId
 })
 
@@ -18,7 +18,7 @@ const UserModel = mongoose.model('users', User)
 const TodoModel = mongoose.model('todos', Todo)
 
 
-module.exports ={
+module.exports = {
     UserModel: UserModel,
     TodoModel: TodoModel
 }
