@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,20 +12,29 @@
   <input type="text"></input>
   <button onclick="addTodo()">Add todo!</button>
 
+  <button onclick="createComplexDomElement()" >Add New div having h1</button>
   <script>
-    function addTodo(){
-      const divEl= document.createElement("div")
+    function addTodo() {
+      const divEl = document.createElement("div")
 
-      const content=document.querySelector("input").value
-      divEl.innerHTML=` <div>${content}</div> <button onclick='removeTask()'>delete</button> ` 
+      const content = document.querySelector("input").value
+      divEl.innerHTML = ` <div>${content}</div> <button onclick='removeTask()'>delete</button> `
 
-      const parentEl=document.querySelector("body")
+      const parentEl = document.querySelector("body")
       parentEl.appendChild(divEl)
     }
 
-    function removeTask(){
-      const task= document.querySelector('div')
+    function removeTask() {
+      const task = document.querySelector('div')
       task.parentNode.removeChild(task)
+    }
+
+    function createComplexDomElement() {
+      const div = document.createElement("div");
+      const h1 = document.createElement("h1");
+      h1.innerHTML = "random text";
+      div.appendChild(h1);
+      document.querySelector("body").appendChild(div);
     }
   </script>
 
@@ -33,4 +43,4 @@
 </html>
 
 
-<!-- done with it will do 3.2 with react,ui/ux,ts after covering backend part  -->
+<!-- done with it will do 3.2 with react,ui/ux,ts after covering backend part 10thjan 2026 done mann  --> 
