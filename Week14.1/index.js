@@ -17,4 +17,13 @@ function log() {
     console.log('mY name is mr random');
 }
 delayedCall(log);
+// passing objects as an arguments
+function welcome(user) {
+    console.log("Hello" + user.name);
+}
+let user = {
+    name: "Harsh",
+    age: 19
+};
+welcome(user);
 //# sourceMappingURL=index.js.map
