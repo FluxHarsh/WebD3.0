@@ -26,4 +26,12 @@ let user = {
     age: 19
 };
 welcome(user);
+// interfaces
+function info(user) {
+    console.log("namaste" + user.name);
+}
+info({
+    name: "Harsh",
+    age: 19
+});
 //# sourceMappingURL=index.js.map

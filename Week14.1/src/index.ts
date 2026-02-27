@@ -42,3 +42,20 @@ let user={
 }
 
 welcome(user)
+
+
+interface UserType {
+    name:string,
+    age:number
+}
+
+// interfaces
+function info(user: UserType){
+    console.log("namaste" + user.name )
+}
+
+info({
+    name:"Harsh",
+    age:19
+})
+
