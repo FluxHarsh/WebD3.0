@@ -7,51 +7,93 @@
 // console.log(sum(2,3))
 
 
-interface Address {
-    city: string;
-    country: string;
-    pincode: number;
-    houseNumber: string;
+// interface Address {
+//     city: string;
+//     country: string;
+//     pincode: number;
+//     houseNumber: string;
+// }
+
+// interface User {
+//     name:string;
+//     age: number;
+//     address: Address
+// }
+
+// interface Office {
+//     address: Address
+// }
+
+// let user: User ={
+//     name:"Harsh",
+//     age: 19,
+//     address:{
+//         city: "Pune",
+//         country: "India",
+//         pincode: 414002,
+//         houseNumber: "B612"
+//     }
+// }
+
+
+
+// // Implementing interfaces via class
+// interface UserType {
+//     name: string;
+//     age: number;
+// }
+
+// class Manager implements UserType {
+//     name: string;
+//     age: number;
+//     constructor(name: string, age: number) {
+//         this.name = name;
+//         this.age = age;
+//     }
+// }
+
+// const m = new Manager("Harsh", 19)
+// console.log(m.name)
+// console.log("random")
+// console.log(m.age)
+ 
+
+// types
+
+type Employee = {
+    name: string;
+    startDate: Date;
 }
+
+type Manager = {
+    name:string;
+    department:string;
+}
+
+type teamLead = Employee & Manager;
+
+const teamLead: teamLead = {
+    name:"Harsh",
+    startDate:new Date(),
+    department:"SDE"
+}
+ 
+
 
 interface User {
-    name:string;
-    age: number;
-    address: Address
+    firstName: string;
+    lastName:string;
+    age:number;
 }
 
-interface Office {
-    address: Address
-}
+// function isLegal(users:User[]){
+//     let ans = []
+//     for(let i =0;users.length;i++){
+//         if( users[i].age > 18){
+//             ans.push(users[i])
+//         }
+//     }
 
-let user: User ={
-    name:"Harsh",
-    age: 19,
-    address:{
-        city: "Pune",
-        country: "India",
-        pincode: 414002,
-        houseNumber: "B612"
-    }
-}
+//     return ans;
+// }
 
-
-
-// Implementing interfaces via class
-interface UserType {
-    name: string;
-    age: number;
-}
-
-class Manager implements UserType {
-    name: string;
-    age: number;
-    constructor(name: string, age: number) {
-        this.name = name;
-        this.age = age;
-    }
-}
-
-const m = new Manager("Harsh", 19)
-console.log(m.name)
-console.log(m.name)
