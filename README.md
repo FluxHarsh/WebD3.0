@@ -1,101 +1,104 @@
-# Appointment App
+# RAG PDF Assistant
 
-[![Python Version](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.100.0%2B-05998b.svg)](https://fastapi.tiangolo.com/)
+[![Python Version](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
-A robust and scalable RESTful API for managing appointments, built with **FastAPI** and **SQLAlchemy**. This application provides a clean interface for scheduling, tracking, and managing time slots between users and service providers.
+A high-performance RAG (Retrieval-Augmented Generation) pipeline designed to turn your PDF documents into an interactive knowledge base. This project leverages **LangChain** for orchestration, **Google Gemini** for state-of-the-art embeddings and generation, and **Qdrant** for lightning-fast vector similarity search.
 
-## 📖 Table of Contents
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Documentation](#api-documentation)
-- [Contributing](#contributing)
-- [License](#license)
+## 🚀 Overview
 
-## ✨ Features
-- **Appointment Scheduling:** Create, update, and cancel appointments seamlessly.
-- **Availability Management:** Prevent double-booking with logic-driven time slot validation.
-- **Database Integration:** Persistent storage using SQLAlchemy ORM with support for multiple SQL dialects (SQLite, PostgreSQL, etc.).
-- **Data Validation:** Strict type checking and request validation using Pydantic.
-- **Auto-generated Docs:** Interactive API documentation via Swagger UI and ReDoc.
+The RAG PDF Assistant allows users to upload complex PDF documents and query them using natural language. Unlike standard LLMs, this system retrieves specific context from your documents to provide accurate, grounded, and source-backed answers, minimizing hallucinations.
+
+### Key Features
+- **Context-Aware Q&A:** Answers questions based specifically on the content of uploaded PDFs.
+- **Advanced Embeddings:** Uses Google Gemini embeddings for superior semantic understanding.
+- **Vector Search:** Powered by Qdrant for scalable and efficient document retrieval.
+- **Persistent Storage:** Vector embeddings are stored and indexed for rapid subsequent queries.
+
+---
 
 ## 🛠 Tech Stack
-- **Framework:** [FastAPI](https://fastapi.tiangolo.com/)
-- **ORM:** [SQLAlchemy](https://www.sqlalchemy.org/)
-- **Validation:** [Pydantic](https://docs.pydantic.dev/)
-- **Database:** SQLite (Default for development)
-- **Server:** [Uvicorn](https://www.uvicorn.org/)
 
-## 🚀 Installation
+- **Language:** [Python](https://www.python.org/)
+- **Orchestration:** [LangChain](https://www.langchain.com/)
+- **LLM & Embeddings:** [Google Gemini AI](https://ai.google.dev/)
+- **Vector Database:** [Qdrant](https://qdrant.tech/)
+- **Document Parsing:** PyPDF
+
+---
+
+## ⚙️ Installation
 
 ### Prerequisites
 - Python 3.9 or higher
-- `pip` (Python package installer)
+- A Google Cloud API Key (for Gemini)
+- Qdrant (Cloud instance or local Docker container)
 
-### Setup Steps
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/rag-pdf-project.git
+cd rag-pdf-project
+```
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/appointment-app.git
-   cd appointment-app
-   ```
+### 2. Set Up Virtual Environment
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-2. **Create a virtual environment:**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
 
-3. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+### 4. Configuration
+Create a `.env` file in the root directory and add your credentials:
+```env
+GOOGLE_API_KEY=your_gemini_api_key_here
+QDRANT_URL=your_qdrant_url
+QDRANT_API_KEY=your_qdrant_api_key
+```
 
-4. **Environment Configuration:**
-   Create a `.env` file in the root directory (if applicable) or configure your database URL in the configuration file.
+---
 
-## 💻 Usage
+## 📖 Usage
 
-1. **Run the database migrations:**
-   (If using Alembic)
-   ```bash
-   alembic upgrade head
-   ```
+### Ingesting Documents
+Place your PDF files in the `data/` directory and run the ingestion script to process and index them:
+```bash
+python ingest.py
+```
 
-2. **Start the development server:**
-   ```bash
-   uvicorn main:app --reload
-   ```
+### Querying the Assistant
+Run the main application to start chatting with your documents:
+```bash
+python main.py --query "What are the key takeaways from the financial report?"
+```
 
-3. **Access the application:**
-   The server will start at `http://127.0.0.1:8000`.
+*(If you have a UI like Streamlit included)*:
+```bash
+streamlit run app.py
+```
 
-## 📄 API Documentation
-
-FastAPI automatically generates interactive documentation for the API. Once the server is running, you can access:
-
-- **Swagger UI:** [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) - Perfect for testing endpoints directly in the browser.
-- **ReDoc:** [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc) - A more formal, structured documentation view.
+---
 
 ## 🤝 Contributing
 
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions make the open-source community an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. **Fork** the Project
+2. Create your **Feature Branch** (`git checkout -b feature/AmazingFeature`)
+3. **Commit** your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. **Push** to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a **Pull Request**
 
-Please ensure your code adheres to [PEP 8](https://peps.python.org/pep-0008/) standards.
+---
 
-## 📜 License
+## 📄 License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
----
-**Maintainer:** [Your Name/GitHub Profile]  
-**Project Link:** [https://github.com/yourusername/appointment-app](https://github.com/yourusername/appointment-app)
+## ✉️ Contact
+
+Project Link: [https://github.com/yourusername/rag-pdf-project](https://github.com/yourusername/rag-pdf-project)
